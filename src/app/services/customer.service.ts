@@ -20,4 +20,8 @@ export class CustomerService {
     });
   }
 
+  public getAllCustomers(): Observable<any>{
+    return this.http.get('http://localhost:3000/api/v1/customerRoute/getAllCustomers');
+  }
+
 }

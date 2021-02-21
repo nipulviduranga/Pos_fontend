@@ -37,11 +37,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Samantha</td>
-      <td>Colombo</td>
-      <td>25000</td>
+    <tr *ngFor="let tempCustomer of customerList; index as num">
+      <th scope="row">{{num+1}}</th>
+      <td>{{tempCustomer.name}}</td>
+      <td>{{tempCustomer.address}}</td>
+      <td>{{tempCustomer.salary}}</td>
       <td>
         <img style="width: 80px; height: 50px" src="https://www.brandquarterly.com/wp-content/uploads/2017/11/How-To-Create-A-Customer-Service-Culture-Q.jpg" alt="">
       </td>

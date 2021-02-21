@@ -16,7 +16,14 @@ export class CustomerPageComponent implements OnInit {
   customerAddress = '';
   customerSalary = 0;
 
+  customerList: any[] = [];
+
   ngOnInit(): void {
+    this.customerService.getAllCustomers().subscribe(response => {
+      this.customerList = response.dataSet;
+    }, error => {
+      console.log(error);
+    });
   }
 
   saveCustomer() {
