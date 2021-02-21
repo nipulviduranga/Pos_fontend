@@ -2,17 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import CustomerDTO from '../dto/CustomerDTO';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-
+baseUrl= environment.baseUrl;
   constructor(private http: HttpClient) {
   }
 
   public saveCustomer(customer: CustomerDTO): Observable<any> {
-    return this.http.post('http://localhost:3000/api/v1/customerRoute/saveCustomer', {
+    return this.http.post(this.baseUrl+'saveCustomer', {
       name: customer.name,
       address: customer.address,
       salary: customer.salary,
@@ -22,17 +23,17 @@ export class CustomerService {
   }
 
   public getAllCustomers(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/v1/customerRoute/getAllCustomers');
+    return this.http.get(this.baseUrl+'getAllCustomers');
   }
 
   public deleteCustomer(id: string): Observable<any> {
-    return this.http.delete('http://localhost:3000/api/v1/customerRoute/deleteCustomer',
+    return this.http.delete(this.baseUrl+'/deleteCustomer',
       {headers: {id}});
   }
 
   /*PUT --> BODY*/
   public updateCustomer(dto:CustomerDTO, id:string): Observable<any> {
-    return this.http.put('http://localhost:3000/api/v1/customerRoute/updateCustomer',
+    return this.http.put(this.baseUrl+'updateCustomer',
       {
         name: dto.name,
         address: dto.address,
