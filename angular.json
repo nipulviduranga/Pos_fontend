@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ThogaKade"
+    }
+  },
+  "defaultProject": "ThogaKade",
+  "cli": {
+    "analytics": "c258890b-94d4-4307-a0f0-cbb93231224c"
+  }
 }

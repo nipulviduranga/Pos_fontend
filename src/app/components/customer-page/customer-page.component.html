@@ -1,0 +1,58 @@
+<div class="main-wrap">
+  <p class="tittle">Customer Form</p>
+
+
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="please enter your name here">
+  </div>
+
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" class="form-control" id="address" placeholder="What's your home city?">
+  </div>
+
+  <div class="mb-3">
+    <label for="salary" class="form-label">Salary</label>
+    <input type="number" class="form-control" id="salary" placeholder="Salary here">
+  </div>
+
+  <!--display: flex (justify-content:flex-end, align-items:right)-->
+  <p style="text-align: right">
+    <button class="btn btn-primary btn-sm">Save Customer</button>
+  </p>
+
+  <hr>
+
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Image</th>
+      <th scope="col">Operate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Samantha</td>
+      <td>Colombo</td>
+      <td>25000</td>
+      <td>
+        <img style="width: 80px; height: 50px" src="https://www.brandquarterly.com/wp-content/uploads/2017/11/How-To-Create-A-Customer-Service-Culture-Q.jpg" alt="">
+      </td>
+      <td>
+        <p>
+          <button class="btn btn-success btn-sm">Update</button>&nbsp;
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
