@@ -9,7 +9,15 @@ export class CustomerPageComponent implements OnInit {
 
   constructor() { }
 
+  customerName = '';
+  customerAddress = '';
+  customerSalary = '';
+
   ngOnInit(): void {
+  }
+
+  saveCustomer(){
+
   }
 
 }
