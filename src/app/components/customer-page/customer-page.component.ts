@@ -19,6 +19,10 @@ export class CustomerPageComponent implements OnInit {
   customerList: any[] = [];
 
   ngOnInit(): void {
+    this.loadAllCustomers();
+  }
+
+  loadAllCustomers(){
     this.customerService.getAllCustomers().subscribe(response => {
       this.customerList = response.dataSet;
     }, error => {
@@ -43,4 +47,14 @@ export class CustomerPageComponent implements OnInit {
     });
   }
 
+  deleteCustomer(_id: string) {
+    if (confirm('Are You sure?')) {
+      this.customerService.deleteCustomer(_id).subscribe(respose => {
+        this.loadAllCustomers();
+        alert('Deleted!');
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
 }
