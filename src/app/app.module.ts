@@ -8,6 +8,8 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
+import {CustomerService} from './services/customer.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,12 @@ import {FormsModule} from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    /*CustomerService Angular 8*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

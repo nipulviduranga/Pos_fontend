@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CustomerService} from '../../services/customer.service';
+import CustomerDTO from '../../dto/CustomerDTO';
 
 @Component({
   selector: 'app-customer-page',
@@ -7,17 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customerService: CustomerService) {
+  }
 
   customerName = '';
   customerAddress = '';
-  customerSalary = '';
+  customerSalary = 0;
 
   ngOnInit(): void {
   }
 
-  saveCustomer(){
+  saveCustomer() {
 
+    const dto = new CustomerDTO(
+      this.customerName.trim(),
+      this.customerAddress.trim(),
+      Number(this.customerSalary),
+      'no-image',
+      []
+    );
+
+    this.customerService.saveCustomer(dto).subscribe(resp => {
+      alert(resp.message);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
