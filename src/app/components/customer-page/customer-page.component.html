@@ -47,7 +47,7 @@
       </td>
       <td>
         <p>
-          <button class="btn btn-success btn-sm">Update</button>&nbsp;
+          <button class="btn btn-success btn-sm" (click)="openModel(tempCustomer)">Update</button>&nbsp;
           <button class="btn btn-danger btn-sm" (click)="deleteCustomer(tempCustomer._id)">Delete</button>
         </p>
       </td>
@@ -62,3 +62,50 @@
   </mat-paginator>
 
 </div>
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<button style="display: none" id="updatebutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="nameForUpdate" class="form-label">Name</label>
+          <input value="{{selectedCustomer?.name}}" [(ngModel)]="customerNameForUpdate" type="text" class="form-control" id="nameForUpdate" placeholder="please enter your name here">
+        </div>
+
+        <div class="mb-3">
+          <label for="addressForUpdate" class="form-label">Address</label>
+          <input  value="{{selectedCustomer?.address}}" [(ngModel)]="customerAddressForUpdate"  type="text" class="form-control" id="addressForUpdate" placeholder="What's your home city?">
+        </div>
+
+        <div class="mb-3">
+          <label for="salaryForUpdate" class="form-label">Salary</label>
+          <input  value="{{selectedCustomer?.salary}}" [(ngModel)]="customerSalaryForUpdate"  type="number" class="form-control" id="salaryForUpdate" placeholder="Salary here">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateCustomer()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

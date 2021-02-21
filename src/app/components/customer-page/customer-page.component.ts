@@ -15,14 +15,19 @@ export class CustomerPageComponent implements OnInit {
   customerName = '';
   customerAddress = '';
   customerSalary = 0;
+  customerNameForUpdate = '';
+  customerAddressForUpdate = '';
+  customerSalaryForUpdate = 0;
 
   customerList: any[] = [];
+
+  selectedCustomer: any = null;
 
   ngOnInit(): void {
     this.loadAllCustomers();
   }
 
-  loadAllCustomers(){
+  loadAllCustomers() {
     this.customerService.getAllCustomers().subscribe(response => {
       this.customerList = response.dataSet;
     }, error => {
@@ -56,5 +61,27 @@ export class CustomerPageComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+
+  openModel(customer: any) {
+    this.selectedCustomer = customer;
+    /* const btn = document.getElementById('updatebutton') as HTMLElement;
+     btn.click();*/
+    document.getElementById('updatebutton').click();
+  }
+
+  updateCustomer() {
+    const dto = new CustomerDTO(
+      this.customerNameForUpdate.trim(),
+      this.customerAddressForUpdate.trim(),
+      Number(this.customerSalaryForUpdate),
+      '',
+      [],
+    );
+    this.customerService.updateCustomer(dto, this.selectedCustomer._id).subscribe(response => {
+      alert('Updated');
+    }, error => {
+      console.log(error);
+    });
   }
 }
