@@ -12,6 +12,7 @@ export default class CustomerDTO{
     this._salary = salary;
     this._image = image;
     this._other = other;
+
   }
 
 
