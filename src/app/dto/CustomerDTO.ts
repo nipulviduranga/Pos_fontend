@@ -1,20 +1,11 @@
 export default class CustomerDTO{
-  private _name:string;
-  private _address:string;
-  private _salary:number;
-  private _image:string;
-  private _other:Array<any>;
-
-
-  constructor(name: string, address: string, salary: number, image: string, other: Array<any>) {
-    this._name = name;
-    this._address = address;
-    this._salary = salary;
-    this._image = image;
-    this._other = other;
-
+  get id(): string {
+    return this._id;
   }
 
+  set id(value: string) {
+    this._id = value;
+  }
 
   get name(): string {
     return this._name;
@@ -32,27 +23,31 @@ export default class CustomerDTO{
     this._address = value;
   }
 
-  get salary(): number {
-    return this._salary;
+  get value(): number {
+    return this._value;
   }
 
-  set salary(value: number) {
-    this._salary = value;
+  set value(value: number) {
+    this._value = value;
   }
 
-  get image(): string {
-    return this._image;
+  get number(): number {
+    return this._number;
   }
 
-  set image(value: string) {
-    this._image = value;
+  set number(value: number) {
+    this._number = value;
   }
-
-  get other(): Array<any> {
-    return this._other;
+  constructor(id: string, name: string, address: string, value: number, number: number) {
+    this._id = id;
+    this._name = name;
+    this._address = address;
+    this._value = value;
+    this._number = number;
   }
-
-  set other(value: Array<any>) {
-    this._other = value;
-  }
+ private _id:string;
+ private _name:string;
+ private _address:string;
+ private _value:number;
+ private _number:number;
 }

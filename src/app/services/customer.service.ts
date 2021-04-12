@@ -14,11 +14,11 @@ baseUrl= environment.baseUrl;
 
   public saveCustomer(customer: CustomerDTO): Observable<any> {
     return this.http.post(this.baseUrl+'saveCustomer', {
+      id: customer.id,
       name: customer.name,
       address: customer.address,
-      salary: customer.salary,
-      image: customer.image,
-      other: customer.other
+      number: customer.number,
+      value: customer.value
     });
   }
 
@@ -35,9 +35,10 @@ baseUrl= environment.baseUrl;
   public updateCustomer(dto:CustomerDTO, id:string): Observable<any> {
     return this.http.put(this.baseUrl+'updateCustomer',
       {
-        name: dto.name,
-        address: dto.address,
-        salary: dto.salary,
+        Uid : dto.id,
+        Uname: dto.name,
+        Uaddress: dto.address,
+        Unumber: dto.number,
         id:id
       });
   }

@@ -14,11 +14,15 @@ export class CustomerPageComponent implements OnInit {
 
   customerName = '';
   customerAddress = '';
-  customerSalary = 0;
+  customerNumber = 0;
   customerNameForUpdate = '';
   customerAddressForUpdate = '';
-  customerSalaryForUpdate = 0;
-
+  customerNumberForUpdate = 0;
+  customerIdForUpdate='';
+  customerValueForUpdate=0;
+  id='';
+  _id='';
+  value=0;
   customerList: any[] = [];
 
   selectedCustomer: any = null;
@@ -26,6 +30,10 @@ export class CustomerPageComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllCustomers();
   }
+  CustomerNumberGenarate(){
+      this.id='C'+(this.customerList.length+1);
+    }
+
 
   loadAllCustomers() {
     this.customerService.getAllCustomers().subscribe(response => {
@@ -36,17 +44,18 @@ export class CustomerPageComponent implements OnInit {
   }
 
   saveCustomer() {
-
+this.CustomerNumberGenarate();
     const dto = new CustomerDTO(
-      this.customerName.trim(),
-      this.customerAddress.trim(),
-      Number(this.customerSalary),
-      'no-image',
-      []
+      this.id.trim(),
+      this.customerName,
+      this.customerAddress,
+      Number(this.value),
+      Number(this.customerNumber)
     );
 
     this.customerService.saveCustomer(dto).subscribe(resp => {
       alert(resp.message);
+      this.loadAllCustomers();
     }, error => {
       console.log(error);
     });
@@ -64,24 +73,89 @@ export class CustomerPageComponent implements OnInit {
   }
 
   openModel(customer: any) {
-    this.selectedCustomer = customer;
-    /* const btn = document.getElementById('updatebutton') as HTMLElement;
-     btn.click();*/
+    this.selectedCustomer=customer;
     document.getElementById('updatebutton').click();
-  }
+    this.customerNameForUpdate=customer.name;
+    this.customerAddressForUpdate=customer.address;
+    this.customerIdForUpdate=customer.id;
+    this.customerValueForUpdate=customer.value;
+    this.customerNumberForUpdate=customer.number;
+    this._id=customer._id;
 
+  }
+openModelView(customer:any){
+  this.selectedCustomer=customer;
+document.getElementById('detailBt').click();
+
+}
   updateCustomer() {
     const dto = new CustomerDTO(
-      this.customerNameForUpdate.trim(),
-      this.customerAddressForUpdate.trim(),
-      Number(this.customerSalaryForUpdate),
-      '',
-      [],
+      this.customerIdForUpdate.trim(),
+      this.customerNameForUpdate,
+      this.customerAddressForUpdate,
+      Number(this.customerNumberForUpdate),
+      Number(this.customerValueForUpdate)
+
     );
-    this.customerService.updateCustomer(dto, this.selectedCustomer._id).subscribe(response => {
+    this.customerService.updateCustomer(dto, this._id).subscribe(response => {
       alert('Updated');
+      this.loadAllCustomers();
     }, error => {
       console.log(error);
     });
+  }
+
+  searchCustomer() {
+
+    if (this.customerName !== '') {
+      const filteredArray = this.customerList.filter(d => {
+        const data = 'name' ? d.name : d; // Incase If It's Array Of Objects.
+        const dataWords = typeof data === 'string' && data?.split(' ')?.map(b => b && b.toLowerCase().trim()).filter(b => b);
+        const searchWords = typeof this.customerName === 'string' && this.customerName?.split(' ').map(b => b && b.toLowerCase().trim()).filter(b => b);
+
+        const matchingWords = searchWords.filter(word => dataWords.includes(word));
+
+        return matchingWords.length;
+
+      }, error => {
+        console.log(error);
+      });
+      this.customerList = filteredArray;
+    }else if(this.id !== ''){
+      const filteredArray1 = this.customerList.filter(d => {
+        const data = 'id' ? d.id : d; // Incase If It's Array Of Objects.
+        const dataWords = typeof data === 'string' && data?.split(' ')?.map(b => b && b.toLowerCase().trim()).filter(b => b);
+        const searchWords = typeof this.id === 'string' && this.id?.split(' ').map(b => b && b.toLowerCase().trim()).filter(b => b);
+
+        const matchingWords = searchWords.filter(word => dataWords.includes(word));
+
+        return matchingWords.length;
+
+      }, error => {
+        console.log(error);
+      });
+      this.customerList = filteredArray1;
+    }else if(this.customerNumber !== 0){
+      const filteredArray2 = this.customerList.filter(d => {
+        const data = 'number' ? d.number : d; // Incase If It's Array Of Objects.
+        const dataWords = typeof data === 'string' && data?.split(' ')?.map(b => b && b.toLowerCase().trim()).filter(b => b);
+        const searchWords = typeof this.id === 'string' && this.id?.split(' ').map(b => b && b.toLowerCase().trim()).filter(b => b);
+
+        const matchingWords = searchWords.filter(word => dataWords.includes(word));
+
+        return matchingWords.length;
+
+      }, error => {
+        console.log(error);
+      });
+      this.customerList = filteredArray2;
+    }else {
+      alert('Please Input Name or Id!');
+    }
+
+  }
+
+  LoadAll() {
+    this.loadAllCustomers();
   }
 }

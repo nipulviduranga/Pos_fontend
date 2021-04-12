@@ -1,14 +1,104 @@
-<p class="header-Text">
-  ThogaKade DashBoard
-</p>
-<hr>
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<!------ Include the above in your HEAD tag ---------->
 
-<p>
-  <button class="btn btn-primary btn-sm">Customers</button> &nbsp;&nbsp;
-  <button class="btn btn-success btn-sm">Items</button> &nbsp;&nbsp;
-  <button class="btn btn-warning btn-sm">Orders</button> &nbsp;&nbsp;
-  <button class="btn btn-dark btn-sm">Place Order</button>
-</p>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand text-justify-center" href="#" >Welcome</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/Home" routerLinkActive="active">
+            <i class="fa fa-home"></i>
+            Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/CheckOut" routerLinkActive="active">
+            <i class="fa fa-shopping-cart">
+            </i>
+            Check Out
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/Items" routerLinkActive="active">
+            <i class="fa fa-shopping-bag"></i>
+            Items
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/Customers" routerLinkActive="active">
+            <i class="fa fa-users"></i>
+            Customers
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/Sellers" routerLinkActive="active">
+            <i class="fa fa-truck"></i>
+            Sellers
+          </a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fa fa-sign-out"></i>
+            Sign Out
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fa fa-user-circle-o"></i>
+            username
+          </a>
+        </li>
+      </ul>
+    </div>
+</nav>
 
 <router-outlet></router-outlet>
+<!--
+<footer class="site-footer">
+  <div class = "container">
+
+    <div class="grid-container">
+      <div class="grid-item">
+
+        <img src="data:image/png;base64,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" alt="">
+      </div>
+
+      <div class="grid-item inner-grid-container">
+
+        <div class="grid-item"><a routerLink="/DashBoard/About" routerLinkActive="true">About Us</a></div>
+        <div class="grid-item"><a routerLink="/DashBoard/Policy" routerLinkActive="true">Privacy Policy</a></div>
+        <div class="grid-item"><a routerLink="/DashBoard/About" routerLinkActive="true">Contact us</a></div>
+        <div class="grid-item"><a routerLink="/DashBoard/Policy" routerLinkActive="true">Cookie Policy</a></div>
+
+
+      </div>
+
+      <div class="grid-item">
+        <div class = "social-buttons">
+          <a href= "https://www.facebook.com/Neluwa.National.School/"><i class="fa fa-facebook"></i></a>
+          <a href= "https://www.google.com/search?q=neluwa+national+school+linkedin&biw=1366&bih=625&sxsrf=ALeKk02WJdOySMJn9v_zEM0QMljQTYd8CQ%3A1616756943605&ei=z8BdYKS2JJTbrQH8u73QCQ&oq=neluwa+national+school&gs_lcp=Cgdnd3Mtd2l6EAEYADIHCCMQsAMQJzIHCCMQsAMQJzIHCCMQsAMQJzILCC4QxwEQrwEQsAMyCQgAELADEAcQHjIJCAAQsAMQBxAeUABYAGCJmANoAXAAeACAAaIDiAGiA5IBAzQtMZgBAKoBB2d3cy13aXrIAQbAAQE&sclient=gws-wiz"><i class="fa fa-linkedin-square"></i></a>
+          <a href= "https://www.google.com/search?q=neluwa+national+school+twitter&sxsrf=ALeKk01csBPqCWqfGGUIY988h2TV-9E1zA%3A1616756869944&ei=hcBdYLqDOZTn9QOb_aSgDA&oq=neluwa+national+school+twitter&gs_lcp=Cgdnd3Mtd2l6EAw6BwgjELADECc6BQghEKABOgcIIRAKEKABUKFyWOCBAWDLjwFoAXAAeACAAccEiAHKD5IBCTAuMy40LjUtMZgBAKABAaoBB2d3cy13aXrIAQHAAQE&sclient=gws-wiz&ved=0ahUKEwj62a7X6M3vAhWUc30KHZs-CcQQ4dUDCA0"><i class="fa fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <p>Copyright © 2021 NTech All rights reserved</p>
+
+  </div>
+</footer>
+-->

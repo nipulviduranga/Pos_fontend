@@ -1,25 +1,29 @@
 <div class="main-wrap">
   <p class="tittle">Customer Form</p>
-
-
+  <div class="mb-3">
+    <label for="name" class="form-label">Id</label>
+    <input [(ngModel)]="id" type="text" class="form-control" id="name" placeholder="This can be use only Searching Customers">
+  </div>
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
-    <input [(ngModel)]="customerName" type="text" class="form-control" id="name" placeholder="please enter your name here">
+    <input [(ngModel)]="customerName" type="text" class="form-control" id="name" placeholder="Required">
   </div>
 
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input [(ngModel)]="customerAddress"  type="text" class="form-control" id="address" placeholder="What's your home city?">
+    <input [(ngModel)]="customerAddress"  type="text" class="form-control" id="address" placeholder="Optional">
   </div>
 
   <div class="mb-3">
-    <label for="salary" class="form-label">Salary</label>
-    <input [(ngModel)]="customerSalary"  type="number" class="form-control" id="salary" placeholder="Salary here">
+    <label for="salary" class="form-label">Number</label>
+    <input [(ngModel)]="customerNumber" class="form-control" id="salary" placeholder="Optional">
   </div>
 
   <!--display: flex (justify-content:flex-end, align-items:right)-->
   <p style="text-align: right">
-    <button class="btn btn-primary btn-sm" (click)="saveCustomer()">Save Customer</button>
+    <button class="btn btn-primary btn-sm cntl-bt" (click)="searchCustomer()">Search</button>
+    <button class="btn btn-primary btn-sm cntl-bt" (click)="LoadAll()">All</button>
+    <button class="btn btn-primary btn-sm cntl-bt" (click)="saveCustomer()">Save Customer</button>
   </p>
 
   <hr>
@@ -31,22 +35,21 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Address</th>
-      <th scope="col">Salary</th>
-      <th scope="col">Image</th>
+      <th scope="col">Number</th>
+      <th scope="col">Total Value</th>
       <th scope="col">Operate</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let tempCustomer of customerList; index as num">
-      <th scope="row">{{num+1}}</th>
+    <tr *ngFor="let tempCustomer of customerList">
+      <th scope="row">{{tempCustomer.id}}</th>
       <td>{{tempCustomer.name}}</td>
       <td>{{tempCustomer.address}}</td>
-      <td>{{tempCustomer.salary}}</td>
-      <td>
-        <img style="width: 80px; height: 50px" src="https://www.brandquarterly.com/wp-content/uploads/2017/11/How-To-Create-A-Customer-Service-Culture-Q.jpg" alt="">
-      </td>
+      <td>{{tempCustomer.number}}</td>
+      <td>{{tempCustomer.value}}</td>
       <td>
         <p>
+          <button class="btn btn-success btn-sm" (click)="openModelView(tempCustomer)">Details</button>
           <button class="btn btn-success btn-sm" (click)="openModel(tempCustomer)">Update</button>&nbsp;
           <button class="btn btn-danger btn-sm" (click)="deleteCustomer(tempCustomer._id)">Delete</button>
         </p>
@@ -67,11 +70,11 @@
 
 
 
-
+<!--////////////////////////////////////////////update model/////////////////////////////////////////////////////////////-->
 
 <!-- Button trigger modal -->
 <button style="display: none" id="updatebutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
+  Launch modal
 </button>
 
 <!-- Modal -->
@@ -86,18 +89,26 @@
       </div>
       <div class="modal-body">
         <div class="mb-3">
+          <label for="nameForUpdate" class="form-label">Id</label>
+          <input value="{{selectedCustomer?.id}}" [(ngModel)]="customerIdForUpdate" type="text" class="form-control" id="idForUpdate">
+        </div>
+        <div class="mb-3">
           <label for="nameForUpdate" class="form-label">Name</label>
-          <input value="{{selectedCustomer?.name}}" [(ngModel)]="customerNameForUpdate" type="text" class="form-control" id="nameForUpdate" placeholder="please enter your name here">
+          <input value="{{selectedCustomer?.name}}" [(ngModel)]="customerNameForUpdate" type="text" class="form-control" id="nameForUpdate" >
         </div>
 
         <div class="mb-3">
           <label for="addressForUpdate" class="form-label">Address</label>
-          <input  value="{{selectedCustomer?.address}}" [(ngModel)]="customerAddressForUpdate"  type="text" class="form-control" id="addressForUpdate" placeholder="What's your home city?">
+          <input  value="{{selectedCustomer?.address}}" [(ngModel)]="customerAddressForUpdate"  type="text" class="form-control" id="addressForUpdate">
         </div>
 
         <div class="mb-3">
-          <label for="salaryForUpdate" class="form-label">Salary</label>
-          <input  value="{{selectedCustomer?.salary}}" [(ngModel)]="customerSalaryForUpdate"  type="number" class="form-control" id="salaryForUpdate" placeholder="Salary here">
+          <label for="numberForUpdate" class="form-label">Number</label>
+          <input  value="{{selectedCustomer?.number}}" [(ngModel)]="customerNumberForUpdate" class="form-control" id="numberForUpdate">
+        </div>
+        <div class="mb-3">
+          <label for="valueForUpdate" class="form-label">Value</label>
+          <input  value="{{selectedCustomer?.value}}" [(ngModel)]="customerValueForUpdate"  type="number" class="form-control" id="valueForUpdate">
         </div>
       </div>
       <div class="modal-footer">
@@ -107,5 +118,60 @@
     </div>
   </div>
 </div>
+<!--////////////////////////////////////////////details model/////////////////////////////////////////////////////////////-->
 
+<!-- Button trigger modal -->
+<button style="display: none" type="button" id="detailBt" class="btn btn-primary" data-toggle="modal" data-target="#detailModal">
+  Launch modal
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModalLabel">{{selectedCustomer?.name}}</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="details-model-text"><span class="detail-sp1">Id</span><span>:{{selectedCustomer?.id}}</span></p>
+        <p class="details-model-text"><span class="detail-sp2">Number</span><span>:{{selectedCustomer?.number}}</span></p>
+        <p class="details-model-text"><span class="detail-sp3">Address</span><span>:{{selectedCustomer?.address}}</span></p>
+        <p class="details-model-text"><span class="detail-sp4">Total Value</span><span>:{{selectedCustomer?.value}}</span></p>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Item No</th>
+            <th scope="col">Item</th>
+            <th scope="col">Item Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Payed Amount</th>
+
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-target="#exampleModal">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
