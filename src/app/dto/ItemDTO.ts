@@ -1,10 +1,32 @@
 export default class ItemDTO {
-  constructor(id: string, name: string, buyingPrice: number, sellingPrice: number, quantity: number) {
+  private _seller:string;
+
+  get seller(): string {
+    return this._seller;
+  }
+
+  set seller(value: string) {
+    this._seller = value;
+  }
+
+  private _mesureType:string;
+
+  get mesureType(): string {
+    return this._mesureType;
+  }
+
+  set mesureType(value: string) {
+    this._mesureType = value;
+  }
+
+  constructor(id: string, name: string, buyingPrice: number, sellingPrice: number, quantity: number, mesureType:string, seller:string) {
     this._id = id;
     this._name = name;
     this._buyingPrice = buyingPrice;
     this._sellingPrice = sellingPrice;
     this._quantity = quantity;
+    this._mesureType = mesureType;
+    this._seller = seller;
   }
 
   private _id:string;

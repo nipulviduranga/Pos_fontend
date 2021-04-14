@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class CustomerService {
-baseUrl= environment.baseUrl;
+  baseUrl= environment.baseUrl;
   constructor(private http: HttpClient) {
   }
 
