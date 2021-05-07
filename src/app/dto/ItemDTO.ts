@@ -19,7 +19,7 @@ export default class ItemDTO {
     this._mesureType = value;
   }
 
-  constructor(id: string, name: string, buyingPrice: number, sellingPrice: number, quantity: number, mesureType:string, seller:string) {
+  constructor(id: string, name: string, buyingPrice: number, sellingPrice: number, quantity: number, mesureType:string, seller:string,date:string) {
     this._id = id;
     this._name = name;
     this._buyingPrice = buyingPrice;
@@ -27,6 +27,7 @@ export default class ItemDTO {
     this._quantity = quantity;
     this._mesureType = mesureType;
     this._seller = seller;
+    this._date=date
   }
 
   private _id:string;
@@ -34,6 +35,15 @@ export default class ItemDTO {
   private _buyingPrice:number;
   private _sellingPrice:number;
   private _quantity:number;
+  private _date:string;
+
+  get date(): string {
+    return this._date;
+  }
+
+  set date(value: string) {
+    this._date = value;
+  }
 
   get id(): string {
     return this._id;

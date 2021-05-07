@@ -14,7 +14,7 @@ export class CustomerPageComponent implements OnInit {
 
   customerName = '';
   customerAddress = '';
-  customerNumber = 0;
+  customerNumber = '';
   customerNameForUpdate = '';
   customerAddressForUpdate = '';
   customerNumberForUpdate = 0;
@@ -38,6 +38,7 @@ export class CustomerPageComponent implements OnInit {
   loadAllCustomers() {
     this.customerService.getAllCustomers().subscribe(response => {
       this.customerList = response.dataSet;
+      console.log(this.customerList)
     }, error => {
       console.log(error);
     });
@@ -93,8 +94,8 @@ document.getElementById('detailBt').click();
       this.customerIdForUpdate.trim(),
       this.customerNameForUpdate,
       this.customerAddressForUpdate,
-      Number(this.customerNumberForUpdate),
-      Number(this.customerValueForUpdate)
+      Number(this.customerValueForUpdate),
+      Number(this.customerNumberForUpdate)
 
     );
     this.customerService.updateCustomer(dto, this._id).subscribe(response => {
@@ -135,11 +136,11 @@ document.getElementById('detailBt').click();
         console.log(error);
       });
       this.customerList = filteredArray1;
-    }else if(this.customerNumber !== 0){
+    }else if(this.customerNumber !== ''){
       const filteredArray2 = this.customerList.filter(d => {
         const data = 'number' ? d.number : d; // Incase If It's Array Of Objects.
         const dataWords = typeof data === 'string' && data?.split(' ')?.map(b => b && b.toLowerCase().trim()).filter(b => b);
-        const searchWords = typeof this.id === 'string' && this.id?.split(' ').map(b => b && b.toLowerCase().trim()).filter(b => b);
+        const searchWords = typeof this.customerNumber === 'string' && this.customerNumber?.split(' ').map(b => b && b.toLowerCase().trim()).filter(b => b);
 
         const matchingWords = searchWords.filter(word => dataWords.includes(word));
 

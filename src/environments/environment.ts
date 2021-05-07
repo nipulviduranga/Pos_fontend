@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   baseUrlCustomer:'http://localhost:3000/api/v1/customerRoute/',
-  baseUrlItem:'http://localhost:3000/api/v1/ItemRoute/'
+  baseUrlItem:'http://localhost:3000/api/v1/ItemRoute/',
+  baseUrlSeller:'http://localhost:3000/api/v1/SellerRoute/'
 };
 
 /*

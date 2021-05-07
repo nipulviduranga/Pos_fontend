@@ -39,8 +39,15 @@ export class CustomerService {
         Uname: dto.name,
         Uaddress: dto.address,
         Unumber: dto.number,
+        Uvalue:dto.value,
         id:id
       });
   }
-
+  public updateCustomerVal(value:number, id:string): Observable<any> {
+    return this.http.put(this.baseUrl+'updateCustomerValue',
+      {
+        Uvalue:value,
+        id:id
+      });
+  }
 }

@@ -56,6 +56,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { HistoryComponent } from './components/history/history.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ItemPageComponent,
     HomePageComponent,
     CheckOutPageComponent,
-    SellersPageComponent
+    SellersPageComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
