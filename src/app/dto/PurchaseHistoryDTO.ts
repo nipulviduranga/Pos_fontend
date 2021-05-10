@@ -1,9 +1,17 @@
 export default class purchaseHistoryDTO {
+  get totalProfit(): number {
+    return this._totalProfit;
+  }
+
+  set totalProfit(value: number) {
+    this._totalProfit = value;
+  }
   private _date:string;
   private _customer:string;
   private _total:number;
   private _paidVal:number;
   private _list:any;
+  private _totalProfit:number
 
   get date(): string {
     return this._date;
@@ -45,11 +53,12 @@ export default class purchaseHistoryDTO {
     this._list = value;
   }
 
-  constructor(date: string, customer: string, total: number, paidVal: number, list: any) {
+  constructor(date: string, customer: string, total: number, paidVal: number, list: any, totalProfit:number) {
     this._date = date;
     this._customer = customer;
     this._total = total;
     this._paidVal = paidVal;
     this._list = list;
+    this._totalProfit=totalProfit;
   }
 }

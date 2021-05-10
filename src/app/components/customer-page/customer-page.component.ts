@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerService} from '../../services/customer.service';
 import CustomerDTO from '../../dto/CustomerDTO';
+import {PurchaseHistoryService} from '../../services/purchase-history.service';
 
 @Component({
   selector: 'app-customer-page',
@@ -9,7 +10,7 @@ import CustomerDTO from '../../dto/CustomerDTO';
 })
 export class CustomerPageComponent implements OnInit {
 
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService,private purchaseHistoryService:PurchaseHistoryService) {
   }
 
   customerName = '';
@@ -24,8 +25,10 @@ export class CustomerPageComponent implements OnInit {
   _id='';
   value=0;
   customerList: any[] = [];
-
+  selectedCustomerDetails=[];
+  purchaseList=[]
   selectedCustomer: any = null;
+  createCustomerDetailArr=[];
 
   ngOnInit(): void {
     this.loadAllCustomers();
@@ -38,7 +41,6 @@ export class CustomerPageComponent implements OnInit {
   loadAllCustomers() {
     this.customerService.getAllCustomers().subscribe(response => {
       this.customerList = response.dataSet;
-      console.log(this.customerList)
     }, error => {
       console.log(error);
     });
@@ -86,7 +88,10 @@ this.CustomerNumberGenarate();
   }
 openModelView(customer:any){
   this.selectedCustomer=customer;
-document.getElementById('detailBt').click();
+  this.FilterPurchaseDetails();
+  this.createCustomerDetailTbl()
+  document.getElementById('detailBt').click();
+
 
 }
   updateCustomer() {
@@ -157,6 +162,43 @@ document.getElementById('detailBt').click();
   }
 
   LoadAll() {
+
     this.loadAllCustomers();
+  }
+
+  getList(){
+    this.purchaseHistoryService.getAllHistory().subscribe(resp=>{
+      // @ts-ignore
+      this.purchaseList=resp.dataSet
+      console.log(this.purchaseList)
+    },error => {
+      console.log(error)
+    })
+  }
+  FilterPurchaseDetails(){
+    this.getList();
+    var j=0
+    for(let i=0;i<this.purchaseList.length;i++){
+      // @ts-ignore
+      if(this.selectedCustomer.name === this.purchaseList[i].customer){
+        this.selectedCustomerDetails[j]=(this.purchaseList[i])
+        j++;
+      }
+    }
+  }
+  createCustomerDetailTbl(){
+    var x=0;
+    for (let i=0;i<this.selectedCustomerDetails.length;i++) {
+      for (let j = 0; j < this.selectedCustomerDetails[i].list.length; j++) {
+        this.createCustomerDetailArr[x]={
+          'date': this.selectedCustomerDetails[i].date,
+          'selectedId':this.selectedCustomerDetails[i].list[j].selectedId,
+          'selectedName':this.selectedCustomerDetails[i].list[j].selectedName,
+          'quantity':this.selectedCustomerDetails[i].list[j].quantity,
+          'total':this.selectedCustomerDetails[i].list[j].total
+        }
+        x++;
+      }
+    }
   }
 }

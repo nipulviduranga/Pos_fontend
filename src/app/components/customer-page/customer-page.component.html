@@ -136,41 +136,37 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body ">
         <p class="details-model-text"><span class="detail-sp1">Id</span><span>:{{selectedCustomer?.id}}</span></p>
         <p class="details-model-text"><span class="detail-sp2">Number</span><span>:{{selectedCustomer?.number}}</span></p>
         <p class="details-model-text"><span class="detail-sp3">Address</span><span>:{{selectedCustomer?.address}}</span></p>
         <p class="details-model-text"><span class="detail-sp4">Total Value</span><span>:{{selectedCustomer?.value}}</span></p>
-        <table class="table">
+        <table class="table model-tbl">
           <thead>
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Item No</th>
             <th scope="col">Item</th>
-            <th scope="col">Item Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total Amount</th>
-            <th scope="col">Payed Amount</th>
+
 
           </tr>
           </thead>
 
           <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+          <tr *ngFor="let details of createCustomerDetailArr;index as number">
+            <th scope="row">{{details.date}}</th>
+            <td>{{details.selectedId}}</td>
+            <td>{{details.selectedName}}</td>
+            <td>{{details.quantity}}</td>
+            <td>{{details.total}}</td>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-target="#exampleModal">Update</button>
       </div>
     </div>
   </div>
